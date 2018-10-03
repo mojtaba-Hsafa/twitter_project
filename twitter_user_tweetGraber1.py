@@ -57,3 +57,13 @@ def get_all_tweets(screen_name):
     	writer.writerows(outtweets)
 
 get_all_tweets("realDonaldTrump")
+
+new_tweets = api.user_timeline(screen_name = 'jemwilson84' ,count=200, tweet_mode='extended')
+#user = api.get_user('jemwilson84')
+new_tweets[4]
+tweet_texts = [tweet.full_text for tweet in new_tweets]
+print(user.screen_name)
+print(user.followers_count)
+
+
+

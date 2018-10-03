@@ -6,7 +6,8 @@ Created on Wed Sep 19 19:45:16 2018
 """
 
 from tweeter_credentials import *
-import twitter
+
+import tweepy
 
 api = twitter.Api(consumer_key=CONSUMER_KEY,
   consumer_secret= CONSUMER_SECRET,
