@@ -50,9 +50,9 @@ class REST_twitter_user():
         self.tweet_num = tweet_num
     def get_user_tweets(self,):
         tweet_objects=[]
-        for status in Cursor(self.client.user_timeline, id=self.user).items(self.tweet_num): 
+        for status in Cursor(self.client.user_timeline, id=self.user, tweet_mode='extended').items(self.tweet_num): 
             tweet_objects.append(status)
-        return [tweet.text for tweet in tweet_objects]
+        return [tweet.full_text for tweet in tweet_objects]
 if __name__ == '__main__': 
     twitter_gate = Tweepy_interface_creator()
     trump_tweets = REST_twitter_user(twitter_gate,'RealDonaldTrump',1000)
