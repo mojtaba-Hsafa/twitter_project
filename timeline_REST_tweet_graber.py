@@ -43,7 +43,7 @@ import json
 class REST_twitter_user():
     
     
-    def __init__(self, twitter_gateway, name, tweet_num ):
+    def __init__(self, twitter_gateway, name, tweet_num= None ):
         self.twitter_gate = twitter_gateway
         self.client = twitter_gate.get_twitter_client()
         self.user = name
@@ -52,17 +52,17 @@ class REST_twitter_user():
         tweet_objects=[]
         for status in Cursor(self.client.user_timeline, id=self.user, tweet_mode='extended').items(self.tweet_num): 
             tweet_objects.append(status)
-        return [tweet.full_text for tweet in tweet_objects]
+        return [tweet.full_text for tweet in tweet_objects], tweet_objects
 if __name__ == '__main__': 
     twitter_gate = Tweepy_interface_creator()
-    trump_tweets = REST_twitter_user(twitter_gate,'RealDonaldTrump',1000)
-    trump_text = trump_tweets.get_user_tweets()
+    trump_tweets = REST_twitter_user(twitter_gate,'RealDonaldTrump', 500)
+    trump_text, trump_tweet_objects = trump_tweets.get_user_tweets()
+    dir(trump_tweet_objects[0])
     
-    
+    trump_tweet_objects[490].user.name
+    trump_tweet_objects[490].created_at
+    '''
     client = twitter_gate.get_twitter_client() 
     new_tweets = client.user_timeline(screen_name = 'RealDonaldTrump' ,count=200, tweet_mode='extended')
-'''  
-  tweets = [tweet.full_text for tweet in new_tweets]
-  for page in Cursor(client.user_timeline(screen_name = 'RealDonaldTrump' ,count=200)).pages(3): 
-    n_tweets= [status.text for status in page]
-'''        
+    '''
+    dates =[tweet_obj.cre for tweet_Obj in trump_tweets]   
