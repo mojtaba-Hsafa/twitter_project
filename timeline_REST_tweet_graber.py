@@ -48,7 +48,7 @@ class REST_twitter_user():
         self.client = twitter_gate.get_twitter_client()
         self.user = name
         self.tweet_num = tweet_num
-    def get_user_tweets(self,):
+    def get_user_tweets(self):
         tweet_objects=[]
         for status in Cursor(self.client.user_timeline, id=self.user, tweet_mode='extended').items(self.tweet_num): 
             tweet_objects.append(status)

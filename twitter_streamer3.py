@@ -1,41 +1,61 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Oct  4 19:32:32 2018
+Created on Mon Nov  5 16:19:14 2018
 
 @author: Moji
 """
+
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Oct 31 14:03:51 2018
+
+@author: Moji
+"""
+
+
 from timeline_REST_tweet_graber import *
 from tweepy import Stream
 from tweepy.streaming import StreamListener
 import os
-import json
-import pandas as pd
+import csv
+import sys
+import sqlite3
+
+#create sql table
+conn = sqlite3.connect('twitter_one5.db')
+c = conn.cursor()
+c.execute('''CREATE TABLE tweets
+    (date text,
+    user text,
+    tweet text)''')
+conn.commit()
+conn.close()
+
+# open connection
+conn = sqlite3.connect('twitter_one5.db')
+c = conn.cursor()
 class TweetListener(StreamListener):
     def __init__(self):
         super(TweetListener, self).__init__()
-        self.file_index = 0
+        self.file_index = 1
         
     def on_status(self, status):
         
         
-        tweets_file = 'C:/Users/Moji/Desktop/Raw_tweets{}.txt'.format(self.file_index)
+        #tweets_file = 'C:/Users/Moji/Desktop/Raw_tweets{}.csv'.format(self.file_index)
         try:
+            c.execute("INSERT INTO tweets (date, user, tweet) VALUES(?, ?,?)", 
+                      (status.user.created_at,status.user.screen_name, status.text))
+            conn.commit()
             
-            with open(tweets_file, 'a',encoding="utf-8") as f:
-                f.write(str(status))
-                print(status.text)
-                f.write('\n')
-                
-                return True
-            '''
-            while os.stat(tweets_file).st_size > 2**6:
-                self.file_index += 1 
-                tweets_file = 'C:/Users/Moji/Desktop/Raw_tweets{}.json'.format(self.file_index)
-            '''
+            
+                #tweets_file = 'C:/Users/Moji/Desktop/Raw_tweets{}.csv'.format(self.file_index)
+            
+            return True
         except BaseException as e:
             print("failed in writting part!")
             print("Error on_data: %s" % str(e))
-        
+            conn.close()
             return True
     def on_error(self,status):
         print(status)
@@ -49,6 +69,7 @@ auth =tweeter_gate.get_twitter_auth()
 python_stream = Stream( auth , listener=python_stream_listener )
 
 python_stream.filter(track=['ISIS'])
+'''
 description = status.user.description
 loc = status.user.location
 text = status.text
@@ -58,3 +79,4 @@ user_created = status.user.created_at
 followers = status.user.followers_count
 id_str = status.id_str
 created = status.created_at
+'''
