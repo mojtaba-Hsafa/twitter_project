@@ -13,7 +13,7 @@ Created on Wed Oct 31 14:03:51 2018
 """
 
 
-from timeline_REST_tweet_graber import *
+#from timeline_REST_tweet_graber import *
 from tweepy import Stream
 from tweepy.streaming import StreamListener
 import os
@@ -22,7 +22,7 @@ import sys
 import sqlite3
 
 #create sql table
-conn = sqlite3.connect('twitter_one5.db')
+conn = sqlite3.connect('twitter_one6.db')
 c = conn.cursor()
 c.execute('''CREATE TABLE tweets
     (date text,
@@ -32,7 +32,7 @@ conn.commit()
 conn.close()
 
 # open connection
-conn = sqlite3.connect('twitter_one5.db')
+conn = sqlite3.connect('twitter_one6.db')
 c = conn.cursor()
 class TweetListener(StreamListener):
     def __init__(self):
@@ -79,4 +79,46 @@ user_created = status.user.created_at
 followers = status.user.followers_count
 id_str = status.id_str
 created = status.created_at
+
+dabiq
+caliphate or khilafah
+Rumiyah
+
+al-Sham
+
+salafi
+rahimahullah
+hijrah
+
+wajib aini
+
+mubahala or mubahalah
+
+hikmah
+
+kafir of kuffar
+
+Anwar al Awlaki 
+
+Abu Bakr al-Baghdadi
+
+sharia 
+
+Mohammed Emwazi or Jihadi John
+
+istitāba
+
+mumāthila
+
+istirāḥatal-mujāhidīn or mujtahidūn
+Sally Jones or the White Widow
+
+umma
+
+ḥudūd
+zakāt
+
+bay'a or mubāyi’īn
+
+Ayn al-Islām
 '''
